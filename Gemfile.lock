@@ -177,7 +177,6 @@ DEPENDENCIES
   rails (~> 6.1.4, >= 6.1.4.1)
   rspec-rails (~> 4.0.2)
   spring
-  tzinfo-data
 
 RUBY VERSION
    ruby 3.0.1p64
