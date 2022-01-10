@@ -23,4 +23,31 @@ RSpec.describe "Todos requests" do
     expect(response.status).to eq(500)
     expect(body['errors']).to include(error_message)
   end
+
+  it 'should query todos' do
+    get '/todos'
+    expect(response.status).to eq(200)
+    expect(JSON.parse(response.body)).to eq([])
+    article = create :todo
+    get '/todos'
+    expect(response.status).to eq(200)
+    expect(JSON.parse(response.body)).to eq([
+      {
+        "id" => article.id,
+        "description" => article.description,
+        "created_at" => article.created_at.as_json,
+        "updated_at" => article.updated_at.as_json
+      }
+    ])
+  end
+
+  it 'should render an error if an error is thrown on query' do
+    error_message = "Some other error"
+    todo = instance_double(Todo)
+    allow(Todo).to receive(:all).and_raise(StandardError, error_message)
+    get '/todos'
+    body = JSON.parse(response.body)
+    expect(response.status).to eq(500)
+    expect(body['errors']).to include(error_message)
+  end
 end

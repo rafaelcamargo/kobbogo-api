@@ -1,4 +1,10 @@
 class TodosController < ApplicationController
+  def index
+    render json: Todo.all, status: 200
+  rescue => e
+    render json: { errors: e.message }, status: 500
+  end
+
   def create
     @todo = Todo.new({ :description => params[:description] })
     if @todo.save
