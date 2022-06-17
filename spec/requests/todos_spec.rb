@@ -39,11 +39,11 @@ RSpec.describe "Todos requests" do
   end
 
   it 'should query todos based on given token' do
-    post '/users', :params => { :username =>  'Bob', :password => '123' }
-    post '/auth', :params => { :username =>  'Bob', :password => '123' }
+    post '/users', :params => { :username =>  'bob', :password => '123' }
+    post '/auth', :params => { :username =>  'bob', :password => '123' }
     first_token = JSON.parse(response.body)['token']
-    post '/users', :params => { :username =>  'Joe', :password => '456' }
-    post '/auth', :params => { :username =>  'Joe', :password => '456' }
+    post '/users', :params => { :username =>  'joe', :password => '456' }
+    post '/auth', :params => { :username =>  'joe', :password => '456' }
     second_token = JSON.parse(response.body)['token']
     post '/todos', :params => { :description =>  'First user\'s first todo'}, :headers => { :Authorization => first_token }
     post '/todos', :params => { :description =>  'First user\'s second todo'}, :headers => { :Authorization => first_token }
@@ -56,8 +56,8 @@ RSpec.describe "Todos requests" do
   end
 
   it 'should not return user id on todos query' do
-    post '/users', :params => { :username =>  'bob', :password => '123' }
-    post '/auth', :params => { :username =>  'bob', :password => '123' }
+    post '/users', :params => { :username =>  'pete', :password => '123' }
+    post '/auth', :params => { :username =>  'pete', :password => '123' }
     token = JSON.parse(response.body)['token']
     post '/todos', :params => { :description =>  'Testing'}, :headers => { :Authorization => token }
     get '/todos', :headers => { :Authorization => token }
@@ -67,11 +67,31 @@ RSpec.describe "Todos requests" do
 
   it 'should render an error if an unknown error is thrown on query' do
     error_message = "Some other error"
-    todo = instance_double(Todo)
-    allow(Todo).to receive(:all).and_raise(StandardError, error_message)
+    allow(Todo).to receive(:where).and_raise(StandardError, error_message)
     get '/todos', :headers => { :Authorization => @token }
     body = JSON.parse(response.body)
     expect(response.status).to eq(500)
     expect(body['errors']).to include(error_message)
+  end
+
+  it 'should destroy a todo' do
+    post '/users', :params => { :username =>  'jim', :password => '123' }
+    post '/auth', :params => { :username =>  'jim', :password => '123' }
+    token = JSON.parse(response.body)['token']
+    post '/todos', :params => { :description =>  'to remove'}, :headers => { :Authorization => token }
+    todo = JSON.parse(response.body)
+    get '/todos', :headers => { :Authorization => token }
+    expect(JSON.parse(response.body).length).to eq(1)
+    delete "/todos/#{todo['id']}", :headers => { :Authorization => token }
+    get '/todos', :headers => { :Authorization => token }
+    expect(response.status).to eq(200)
+    expect(JSON.parse(response.body).length).to eq(0)
+  end
+
+  it 'should render an error if unexisting todo id has been given' do
+    delete '/todos/asd', :headers => { :Authorization => @token }
+    body = JSON.parse(response.body)
+    expect(response.status).to eq(404)
+    expect(body['errors']).to include("Couldn't find Todo with 'id'=asd")
   end
 end
