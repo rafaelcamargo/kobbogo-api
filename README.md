@@ -20,7 +20,7 @@ cd kobbogo-api
 bundle install
 ```
 
-5. Create and setup databases:
+5. Create and setup databases - *[PostgreSQL](https://www.postgresql.org/) 14.x (server 9.x)* or greater:
 ``` bash
 rails db:create
 rails db:migrate
@@ -41,7 +41,7 @@ The *User* collection has a single endpoint. The endpoint requires *username* an
 
 | Method | URI    | Request Body | Response Status | Response Body |
 |--------|--------|--------------|-----------------|---------------|
-| **POST**   | `/users` | {<br>&nbsp;&nbsp;username: String,<br>&nbsp;&nbsp;password: String<br>} | 201 | |
+| **POST**   | `/users` | {<br>&nbsp;&nbsp;username: String,<br>&nbsp;&nbsp;password: String<br>} | [201](https://www.httpstatuses.org/201) *(Created)* | |
 
 ### User Authentication
 
@@ -49,7 +49,7 @@ Authentication has a single endpoint. The endpoint requires user's credentials (
 
 | Method | URI    | Request Body | Response Status | Response Body |
 |--------|--------|--------------|-----------------|---------------|
-| **POST**   | `/auth` | {<br>&nbsp;&nbsp;username: String,<br>&nbsp;&nbsp;password: String<br>} | 201 | {<br>&nbsp;&nbsp;token: String,<br>&nbsp;&nbsp;exp: Date,<br>&nbsp;&nbsp;username: String<br>} |
+| **POST**   | `/auth` | {<br>&nbsp;&nbsp;username: String,<br>&nbsp;&nbsp;password: String<br>} | [201](https://www.httpstatuses.org/201) *(Created)* | {<br>&nbsp;&nbsp;token: String,<br>&nbsp;&nbsp;exp: Date,<br>&nbsp;&nbsp;username: String<br>} |
 
 ### Todo Collection
 
@@ -61,7 +61,7 @@ This endpoint requires a *description* to create a todo.
 
 | Method | URI    | Request Body | Response Status | Response Body |
 |--------|--------|--------------|-----------------|---------------|
-| **POST**   | `/todos` | {<br>&nbsp;&nbsp;description: String,<br>} | 201 | {<br>&nbsp;&nbsp;id: UUID,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;created_at: Date,<br>&nbsp;&nbsp;updated_at: Date,<br>} |
+| **POST**   | `/todos` | {<br>&nbsp;&nbsp;description: String,<br>} | [201](https://www.httpstatuses.org/201) *(Created)* | {<br>&nbsp;&nbsp;id: UUID,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;created_at: Date,<br>&nbsp;&nbsp;updated_at: Date,<br>} |
 
 #### Retrieve
 
@@ -69,7 +69,7 @@ This endpoint does not requires anything.
 
 | Method | URI    | Request Body | Response Status | Response Body |
 |--------|--------|--------------|-----------------|---------------|
-| **GET**   | `/todos` |  | 200 | [{<br>&nbsp;&nbsp;id: UUID,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;created_at: String,<br>&nbsp;&nbsp;updated_at: String,<br>}] |
+| **GET**   | `/todos` |  | [200](https://www.httpstatuses.org/200) *(Ok)* | [{<br>&nbsp;&nbsp;id: UUID,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;created_at: Date,<br>&nbsp;&nbsp;updated_at: Date,<br>}] |
 
 #### Delete
 
@@ -77,11 +77,11 @@ This endpoint requires a todo id to be passed on the URI.
 
 | Method | URI    | Request Body | Response Status | Response Body |
 |--------|--------|--------------|-----------------|---------------|
-| **DELETE**   | `/todos/:id` |  | 200 | |
+| **DELETE**   | `/todos/:id` |  | [200](https://www.httpstatuses.org/200) *(Ok)* | |
 
 ## Tests
 
-Ensure that all code that you have added is covered with automated tests:
+Ensure that all code that you have added is covered with [automated tests](https://rspec.info/):
 ``` bash
-rspec
+bundle exec rspec
 ```
