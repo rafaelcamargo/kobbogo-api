@@ -11,7 +11,7 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new({ :description => params[:description], :user_id => @current_user.id })
     if @todo.save
-      render json: @todo, status: 201
+      render json: format(@todo), status: 201
     else
       render json: { errors: @todo.errors.full_messages }, status: 400
     end

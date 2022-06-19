@@ -61,7 +61,7 @@ This endpoint requires a *description* to create a todo.
 
 | Method | URI    | Request Body | Response Status | Response Body |
 |--------|--------|--------------|-----------------|---------------|
-| **POST**   | `/todos` | {<br>&nbsp;&nbsp;description: String,<br>} | 201 | {<br>&nbsp;&nbsp;id: UUID,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;user_id: UUID,<br>&nbsp;&nbsp;created_at: Date,<br>&nbsp;&nbsp;updated_at: Date,<br>} |
+| **POST**   | `/todos` | {<br>&nbsp;&nbsp;description: String,<br>} | 201 | {<br>&nbsp;&nbsp;id: UUID,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;created_at: Date,<br>&nbsp;&nbsp;updated_at: Date,<br>} |
 
 #### Retrieve
 
@@ -69,7 +69,7 @@ This endpoint does not requires anything.
 
 | Method | URI    | Request Body | Response Status | Response Body |
 |--------|--------|--------------|-----------------|---------------|
-| **GET**   | `/todos` |  | 201 | [{<br>&nbsp;&nbsp;id: String,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;user_id: String,<br>&nbsp;&nbsp;created_at: String,<br>&nbsp;&nbsp;updated_at: String,<br>}] |
+| **GET**   | `/todos` |  | 200 | [{<br>&nbsp;&nbsp;id: UUID,<br>&nbsp;&nbsp;description: String,<br>&nbsp;&nbsp;created_at: String,<br>&nbsp;&nbsp;updated_at: String,<br>}] |
 
 #### Delete
 

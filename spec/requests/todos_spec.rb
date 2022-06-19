@@ -12,7 +12,10 @@ RSpec.describe "Todos requests" do
 
   it 'should save a todo' do
     post '/todos', :params => { :description =>  'Testing description'}, :headers => { :Authorization => @token }
+    body = JSON.parse(response.body)
     expect(response.status).to eq(201)
+    expect(body['description']).to eq('Testing description')
+    expect(body['user_id']).to eq(nil)
   end
 
   it 'should save a todo if no auth token has been provided' do
