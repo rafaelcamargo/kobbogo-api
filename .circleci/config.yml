@@ -1,0 +1,50 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.0
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:3.0.1
+    steps:
+      - checkout
+      - ruby/install-deps
+
+  test:
+    parallelism: 3
+    docker:
+      - image: cimg/ruby:3.0.1
+      - image: cimg/postgres:14.0
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: kobbogo_api_test
+          POSTGRES_PASSWORD: ""
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: ""
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - run:
+          name: Running Tests
+          command: bundle exec rspec
+
+workflows:
+  version: 2
+  ci_cd:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
