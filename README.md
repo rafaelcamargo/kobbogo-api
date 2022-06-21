@@ -1,6 +1,8 @@
 # Kobbogo API
 > An experimental API to dig deeper with Ruby on Rails.
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/rafaelcamargo/kobbogo-api/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/rafaelcamargo/kobbogo-api/tree/master)
+
 ## Contributing
 
 1. Install *Ruby 3.x or greater* - Prefer to install Ruby with [Ruby Version Manager](https://rvm.io/).
