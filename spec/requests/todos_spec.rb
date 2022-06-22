@@ -18,7 +18,7 @@ RSpec.describe "Todos requests" do
     expect(body['user_id']).to eq(nil)
   end
 
-  it 'should save a todo if no auth token has been provided' do
+  it 'should not save a todo if no auth token has been provided' do
     post '/todos', :params => { :description =>  'Testing description'}
     expect(response.status).to eq(401)
   end
