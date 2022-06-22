@@ -2,6 +2,7 @@
 > An experimental API to dig deeper with Ruby on Rails.
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/rafaelcamargo/kobbogo-api/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/rafaelcamargo/kobbogo-api/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/rafaelcamargo/kobbogo-api/badge.svg?branch=master)](https://coveralls.io/github/rafaelcamargo/kobbogo-api?branch=master)
 
 ## Contributing
 
