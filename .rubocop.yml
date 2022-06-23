@@ -7,6 +7,7 @@ AllCops:
   Exclude:
     - 'db/**/*'
     - 'bin/**/*'
+    - 'vendor/**/*'
   NewCops: enable
 
 Metrics/MethodLength:
