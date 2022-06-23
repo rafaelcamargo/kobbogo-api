@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.0
   coveralls: coveralls/coveralls@1.0.6
+  heroku: circleci/heroku@1.2.6
 
 jobs:
   build:
@@ -52,6 +53,14 @@ jobs:
           command: bundle exec rspec
       - coveralls/upload
 
+  deploy:
+    docker:
+      - image: cimg/ruby:3.0.1
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git
+
 workflows:
   version: 2
   ci_cd:
@@ -63,3 +72,11 @@ workflows:
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
+            - format
+          filters:
+            branches:
+              only:
+                - main
