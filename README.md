@@ -85,7 +85,7 @@ This endpoint requires a todo id to be passed on the URI.
 
 ## Code Format
 
-Ensure that all the code that you have added is [properly formatted](https://github.com/rubocop/rubocop):
+Ensure that all the code you have added is [properly formatted](https://rubocop.org/):
 ``` bash
 bundle exec rubocop
 ```
