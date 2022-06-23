@@ -1,0 +1,34 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  DisplayStyleGuide: true
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+  NewCops: enable
+
+Metrics/MethodLength:
+  CountAsOne:
+    - 'array'
+    - 'hash'
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/ExampleWording:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: 20
+
+Style/BlockComments:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false

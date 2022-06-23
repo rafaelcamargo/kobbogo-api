@@ -1,12 +1,12 @@
 class AuthController < ApplicationController
   def create
-    @user = User.find_by_username(params[:username])
+    @user = User.find_by(username: params[:username])
     if @user&.authenticate(params[:password])
       render json: {
         token: token,
         exp: auth_expiration_timestamp,
         username: @user.username
-      }, status: 201
+      }, status: :created
     else
       render json: { error: 'User or Password invalid' }, status: :unauthorized
     end
@@ -19,6 +19,6 @@ class AuthController < ApplicationController
   end
 
   def auth_expiration_timestamp
-    (Time.now + 24.hours.to_i).strftime("%m-%d-%Y %H:%M")
+    (Time.zone.now + 24.hours.to_i).strftime('%m-%d-%Y %H:%M')
   end
 end

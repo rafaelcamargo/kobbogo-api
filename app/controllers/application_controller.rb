@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
     begin
       decoded_token = Services::JsonWebToken.decode(encoded_token)
       @current_user = User.find(decoded_token[:user_id])
-    rescue => e
+    rescue StandardError => e
       render json: { errors: e.message }, status: :unauthorized
     end
   end

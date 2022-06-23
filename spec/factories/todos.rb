@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :todo do
-    description { "MyString" }
+    description { 'MyString' }
   end
 end
