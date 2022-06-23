@@ -8,10 +8,10 @@ RSpec.describe User, type: :model do
   end
 
   it 'should be invalid if given username has already been taken' do
-    user1 = create(:user, username: 'John', password: '123')
-    user2 = build(:user, username: 'John', password: '123')
-    expect(user2).not_to be_valid
-    expect(user2.errors.full_messages).to include("Username has already been taken")
+    create(:user, username: 'John', password: '123')
+    user = build(:user, username: 'John', password: '123')
+    expect(user).not_to be_valid
+    expect(user.errors.full_messages).to include('Username has already been taken')
   end
 
   it 'should be invalid if no password has been provided' do

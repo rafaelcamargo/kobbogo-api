@@ -3,6 +3,7 @@
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/rafaelcamargo/kobbogo-api/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/rafaelcamargo/kobbogo-api/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/rafaelcamargo/kobbogo-api/badge.svg?branch=master)](https://coveralls.io/github/rafaelcamargo/kobbogo-api?branch=master)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 
 ## Contributing
 
@@ -82,9 +83,16 @@ This endpoint requires a todo id to be passed on the URI.
 |--------|--------|--------------|-----------------|---------------|
 | **DELETE**   | `/todos/:id` |  | [200](https://www.httpstatuses.org/200) *(Ok)* | |
 
+## Code Format
+
+Ensure that all the code that you have added is [properly formatted](https://github.com/rubocop/rubocop):
+``` bash
+bundle exec rubocop
+```
+
 ## Tests
 
-Ensure that all code that you have added is covered with [automated tests](https://rspec.info/):
+Ensure that all the code you have added is covered with [automated tests](https://rspec.info/):
 ``` bash
 bundle exec rspec
 ```

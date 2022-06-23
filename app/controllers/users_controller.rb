@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      render status: 201
+      render status: :created
     else
       thrown_error(@user.errors.full_messages, 400)
     end
-  rescue => e
+  rescue StandardError => e
     thrown_error(e.message, 500)
   end
 
@@ -21,6 +21,6 @@ class UsersController < ApplicationController
   end
 
   def remove_unnecessary_errors(errors)
-    Array(errors).select { |err| !err.include? 'Password digest' }
+    Array(errors).reject { |err| err == 'Password digest can\'t be blank' }
   end
 end

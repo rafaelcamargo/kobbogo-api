@@ -12,6 +12,16 @@ jobs:
       - checkout
       - ruby/install-deps
 
+  format:
+    docker:
+      - image: cimg/ruby:3.0.1
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Analyzing Code Format
+          command: bundle exec rubocop
+
   test:
     parallelism: 3
     docker:
@@ -47,6 +57,9 @@ workflows:
   ci_cd:
     jobs:
       - build
+      - format:
+          requires:
+            - build
       - test:
           requires:
             - build
