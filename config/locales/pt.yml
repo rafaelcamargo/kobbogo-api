@@ -1,0 +1,30 @@
+pt:
+  activerecord:
+    models:
+      user: 'Usuário'
+      todo: 'Tarefa'
+    attributes:
+      user:
+        username: 'Nome de Usuário'
+        password: 'Senha'
+        password_digest: 'Senha'
+      todo:
+        description: 'Descrição'
+    errors:
+      models:
+        user:
+          attributes:
+            username:
+              blank: 'não pode ser vazio'
+              taken: 'indisponível'
+            password:
+              blank: 'não pode ser vazia'
+            password_digest:
+              blank: 'não pode ser vazia'
+        todo:
+          attributes:
+            description:
+              blank: 'não pode ser vazia'
+  auth:
+    errors:
+      invalid_credentials: 'Nome de Usuário ou Senha não confere'

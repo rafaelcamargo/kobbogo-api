@@ -39,6 +39,14 @@ RSpec.describe 'Users requests' do
     expect(response.status).to eq(500)
     expect(body['errors']).to eq([error_message])
   end
+
+  it 'should translate error messages to portuguese if client preferred language is portuguese' do
+    create(:user, { username: 'fernando', password: '123' })
+    post '/users', headers: { 'Accept-Language': 'pt-BR' }
+    expect(parse(response)['errors']).to eq(['Nome de Usuário não pode ser vazio', 'Senha não pode ser vazia'])
+    post '/users', params: { username: 'fernando', password: '123' }, headers: { 'Accept-Language': 'pt-BR' }
+    expect(parse(response)['errors']).to eq(['Nome de Usuário indisponível'])
+  end
 end
 
 def parse(response)

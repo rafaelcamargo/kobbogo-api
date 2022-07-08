@@ -17,10 +17,6 @@ class UsersController < ApplicationController
   end
 
   def thrown_error(errors, status)
-    render json: { errors: remove_unnecessary_errors(errors) }, status: status
-  end
-
-  def remove_unnecessary_errors(errors)
-    Array(errors).reject { |err| err == 'Password digest can\'t be blank' }
+    render json: { errors: Array(errors).uniq }, status: status
   end
 end

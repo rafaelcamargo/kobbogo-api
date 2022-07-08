@@ -8,7 +8,8 @@ class AuthController < ApplicationController
         username: @user.username
       }, status: :created
     else
-      render json: { error: 'User or Password invalid' }, status: :unauthorized
+      error_message = I18n.t 'auth.errors.invalid_credentials'
+      render json: { errors: [error_message] }, status: :unauthorized
     end
   end
 
