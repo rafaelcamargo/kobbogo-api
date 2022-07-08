@@ -96,6 +96,11 @@ RSpec.describe 'Todos requests' do
     expect(body['errors']).to include("Couldn't find Todo with 'id'=asd")
   end
 
+  it 'should translate error messages to portuguese if client preferred language is portuguese' do
+    post '/todos', headers: { Authorization: token, 'Accept-Language': 'pt-BR' }
+    expect(JSON.parse(response.body)['errors']).to include('Descrição não pode ser vazia')
+  end
+
   private
 
   def token

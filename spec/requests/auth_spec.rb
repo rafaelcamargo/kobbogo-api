@@ -16,8 +16,7 @@ RSpec.describe 'Auth requests' do
 
   it 'should return unauthorized if user does not exist' do
     post '/auth', params: { username: 'taylor', password: '123' }
-    body = JSON.parse(response.body)
-    expect(body['error']).to eq('User or Password invalid')
+    expect(parse(response)['errors']).to eq(['Username or Password is invalid'])
     expect(response.status).to eq(401)
   end
 
@@ -26,8 +25,16 @@ RSpec.describe 'Auth requests' do
     password = '123'
     post '/users', params: { username: username, password: password }
     post '/auth', params: { username: username, password: '456' }
-    body = JSON.parse(response.body)
-    expect(body['error']).to eq('User or Password invalid')
+    expect(parse(response)['errors']).to eq(['Username or Password is invalid'])
     expect(response.status).to eq(401)
   end
+
+  it 'should translate error messages to portuguese if client preferred language is portuguese' do
+    post '/auth', params: { username: 'taylor', password: '123' }, headers: { 'Accept-Language': 'pt-BR' }
+    expect(parse(response)['errors']).to eq(['Nome de Usuário ou Senha não confere'])
+  end
+end
+
+def parse(response)
+  JSON.parse(response.body)
 end
